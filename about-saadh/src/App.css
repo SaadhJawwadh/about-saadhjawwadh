@@ -1,0 +1,47 @@
+#root {
+  max-width: 800px; /* Adjusted max-width for a more focused content area */
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: left; /* Align text to the left for a more traditional feel */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content within the container */
+  gap: 1rem; /* Add some space between elements */
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.content {
+  width: 100%;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.section h2 {
+  font-size: 1.8em;
+  color: #bb86fc; /* Material Design purple for section headers */
+  border-bottom: 2px solid #bb86fc;
+  padding-bottom: 0.3em;
+  margin-bottom: 1em;
+}
+
+.section p {
+  line-height: 1.7;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid #333; /* Subtle border for the footer */
+  font-size: 0.9em;
+  color: #a0a0a0; /* Lighter gray for footer text */
+}
