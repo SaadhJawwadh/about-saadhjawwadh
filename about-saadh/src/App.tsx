@@ -1,17 +1,52 @@
 import './App.css';
+import { useEffect, useState } from 'react';
+import profileImg from './assets/profile.jpg';
 
 function App() {
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('theme') || 'dark';
+  });
+
+  useEffect(() => {
+    document.documentElement.className = theme;
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const handleToggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
   return (
     <div className="container">
       <header className="header">
+        <div className="blob-img-wrapper">
+          <img src={profileImg} alt="Profile" className="blob-img" />
+        </div>
         <h1>Saadh Jawwadh</h1>
         <p>Assisstant Lecturer </p>
+        <button
+          onClick={handleToggleTheme}
+          style={{
+            marginTop: '1rem',
+            padding: '0.5rem 1.2rem',
+            borderRadius: '999px',
+            border: 'none',
+            background: 'var(--button-bg)',
+            color: 'var(--button-text)',
+            cursor: 'pointer',
+            fontWeight: 600,
+            fontSize: '1em',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.07)'
+          }}
+          aria-label="Toggle dark/light theme"
+        >
+          {theme === 'dark' ? '🌞 Light Mode' : '🌙 Dark Mode'}
+        </button>
       </header>
-
       <main className="content">
         <section className="section" id="about">
           <h2>About Me</h2>
-            <p>
+          <p>
             <b>
               If you ask me who is Saadh Jawwadh, I would say just a curious person who tries to brige the gab
               between academia and the industry
@@ -20,8 +55,8 @@ function App() {
             <br />
             But if you asked and LLM like GroK here is what it would say:
             <br />
-            Meet Saadh Jawwadh, the internet’s coolest tech uncle who’s part wizard, part comedian, and 100% likely to forget lunch while saving the digital world. With 29 GitHub repositories—more than most people’s sock collections—he’s a coding Spider-Man, swinging through lines of code to fight bugs and build everything from sneeze-tweeting bots to dinner-predicting AI. On social media, he drops tech tips like hot mixtapes, casually explaining VPNs while cracking jokes about AI-generated nudes (yep, he went there). As the digital neighborhood watch guy, he’s all about cybersecurity, warning us about scams and Instagram’s creepy tracking with humor drier than a desert. On LinkedIn, he’s “bridging the gap between academia and industry” (aka trying to land a job), but don’t be fooled—he’d rather debug a program than fix your printer. Saadh’s the rare breed who teaches nerdy stuff and makes you laugh, always ready with a fun fact, helpful tip, or sarcastic quip about tech life—just don’t bug him mid-project, he’s too busy being awesome.
-            </p>
+            Meet Saadh Jawwadh, the internet's coolest tech uncle who's part wizard, part comedian, and 100% likely to forget lunch while saving the digital world. With 29 GitHub repositories—more than most people's sock collections—he's a coding Spider-Man, swinging through lines of code to fight bugs and build everything from sneeze-tweeting bots to dinner-predicting AI. On social media, he drops tech tips like hot mixtapes, casually explaining VPNs while cracking jokes about AI-generated nudes (yep, he went there). As the digital neighborhood watch guy, he's all about cybersecurity, warning us about scams and Instagram's creepy tracking with humor drier than a desert. On LinkedIn, he's "bridging the gap between academia and industry" (aka trying to land a job), but don't be fooled—he'd rather debug a program than fix your printer. Saadh's the rare breed who teaches nerdy stuff and makes you laugh, always ready with a fun fact, helpful tip, or sarcastic quip about tech life—just don't bug him mid-project, he's too busy being awesome.
+          </p>
         </section>
 
         <section className="section" id="skills">

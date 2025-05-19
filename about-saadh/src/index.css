@@ -1,11 +1,21 @@
 :root {
+  --bg: #000000;
+  --text: #e0e0e0;
+  --heading: #ffffff;
+  --link: #bb86fc;
+  --link-hover: #3700b3;
+  --section-header: #bb86fc;
+  --footer: #a0a0a0;
+  --footer-border: #333;
+  --button-bg: #222;
+  --button-text: #fff;
+
   font-family: 'Roboto Mono', monospace, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.6;
   font-weight: 400;
 
   color-scheme: dark;
-  color: #e0e0e0; /* Light gray text for better readability on black background */
-  background-color: #000000; /* Black background */
+  background-color: var(--bg);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,12 +23,35 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.light {
+  --bg: #f7f7f7;
+  --text: #222;
+  --heading: #111;
+  --link: #5e35b1;
+  --link-hover: #311b92;
+  --section-header: #5e35b1;
+  --footer: #666;
+  --footer-border: #ddd;
+  --button-bg: #e0e0e0;
+  --button-text: #222;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 body {
   margin: 0;
   display: flex;
-  flex-direction: column; /* Align items vertically */
-  align-items: center; /* Center content horizontally */
-  justify-content: center; /* Center content vertically */
+  flex-direction: column;
+  /* Align items vertically */
+  align-items: center;
+  /* Center content horizontally */
+  justify-content: center;
+  /* Center content vertically */
   min-height: 100vh;
   padding: 2rem;
   box-sizing: border-box;
@@ -26,23 +59,77 @@ body {
 
 a {
   font-weight: 500;
-  color: #bb86fc; /* Material Design purple for links */
-  text-decoration: none; /* Remove underline from links */
+  color: var(--link);
+  text-decoration: none;
+  /* Remove underline from links */
   transition: color 0.25s;
 }
 
 a:hover {
-  color: #3700b3; /* Darker purple on hover */
+  color: var(--link-hover);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+.section,
+.footer,
+.header,
+.container {
+  transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 h1 {
-  font-size: 2.5em; /* Adjusted for a more minimalistic feel */
+  font-size: 2.5em;
+  /* Adjusted for a more minimalistic feel */
   line-height: 1.2;
   margin-bottom: 0.5em;
-  color: #ffffff; /* White heading */
+  color: var(--heading);
 }
 
 p {
   font-size: 1.1em;
   margin-bottom: 1em;
+}
+
+@media (max-width: 600px) {
+
+  #root,
+  .container {
+    padding: 1rem;
+    max-width: 100vw;
+  }
+
+  h1 {
+    font-size: 1.6em;
+  }
+
+  .section h2 {
+    font-size: 1.2em;
+  }
+
+  .footer {
+    font-size: 0.8em;
+  }
+}
+
+@media (max-width: 900px) {
+
+  #root,
+  .container {
+    max-width: 98vw;
+    padding: 1.2rem;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  .section h2 {
+    font-size: 1.4em;
+  }
 }
