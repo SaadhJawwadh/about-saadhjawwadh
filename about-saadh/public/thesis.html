@@ -10,23 +10,24 @@
     {
       "@context": "https://schema.org",
       "@type": "ScholarlyArticle",
-      "headline": "Research Thesis by Saadh Jawwadh",
+      "headline": "SHERLOCK: A Deep Learning Approach To Detect Software Vulnerabilities",
       "author": {
         "@type": "Person",
         "name": "Saadh Jawwadh"
       },
-      "datePublished": "2024-10-17",
-      "abstract": "[Please Paste Abstract Here]",
+      "datePublished": "2023-05-10",
+      "abstract": "The increasing reliance on software in various applications has made the problem of software vulnerability detection more critical. Software vulnerabilities can lead to security breaches, data theft, and other negative outcomes. Traditional software vulnerability detection techniques, such as static and dynamic analysis, have been shown to be ineffective at detecting multiple vulnerabilities. To address this issue, this study employed a deep learning approach, specifically Convolutional Neural Networks (CNN), to solve the software vulnerability detection problem. A 5-split cross-validation approach was used to train and evaluate the CNN model, which takes tokenized source code as input. The findings indicated that Sherlock successfully detected multiple vulnerabilities at the function level, and its performance was particularly strong for CWE-199, CWE-120, and CWE- Other, with an overall high accuracy rate and significant true positive and true negative values. However, the performance was less reliable for some vulnerabilities due to the lack of a standardized dataset which will be a future research direction. The results suggest that compared to current techniques, the proposed deep learning approach has the potential to substantially enhance the accuracy of software vulnerability detection.",
       "url": "YOUR_WEBSITE_URL/thesis.html", // Replace YOUR_WEBSITE_URL with your actual domain
-      "keywords": ["[keyword1]", "[keyword2]", "[keyword3]"] // Add relevant keywords
+      "keywords": ["Software Vulnerability Detection", "AI", "Deep Learning", "Convolutional Neural Network", "Gaussian Noise", "Security and privacy", "Systems security", "Vulnerability management", "Vulnerability scanners", "Computing methodologies", "Artificial intelligence", "Machine learning", "Neural networks"] // Add relevant keywords
     }
     </script>
     </head>
 
     <body>
         <header>
-            <h1>Research Thesis by Saadh Jawwadh</h1>
-            <p class="author">By Saadh Jawwadh</p>
+            <h1>SHERLOCK: A Deep Learning Approach To Detect Software Vulnerabilities</h1>
+            <p class="author">A Thesis by Mr. Saadh Jawwadh</p>
+            <p>Supervised by Mr. Guhanathan Poravi</p>
             <p><a href="Saadh_Jawwadh_Thesis.pdf" download="Saadh_Jawwadh_Thesis.pdf">Download Full Thesis (PDF)</a></p>
             <p><a href="/">Back to Main Page</a></p>
         </header>
@@ -37,10 +38,14 @@
                 <li><a href="#introduction">1. Introduction</a></li>
                 <li><a href="#literature-review">2. Literature Review</a></li>
                 <li><a href="#methodology">3. Methodology</a></li>
-                <li><a href="#results-discussion">4. Results & Discussion</a></li>
-                <li><a href="#conclusion">5. Conclusion</a></li>
+                <li><a href="#srs">4. SRS</a></li>
+                <li><a href="#slep-issues">5. SLEP Issues</a></li>
+                <li><a href="#design">6. Design</a></li>
+                <li><a href="#implementations">7. Implementations</a></li>
+                <li><a href="#testing">8. Testing</a></li>
+                <li><a href="#evaluation">9. Evaluation</a></li>
+                <li><a href="#conclusion">10. Conclusion</a></li>
                 <li><a href="#references">References</a></li>
-                <!-- Add more sections if needed, e.g., Appendices -->
             </ul>
         </nav>
         <main>
@@ -48,66 +53,672 @@
                 <h2>Abstract</h2>
                 <details open>
                     <summary>View Abstract</summary>
-                    <p><em>(Please copy and paste the abstract of your thesis here. This section provides a concise
-                            summary of your research.)</em></p>
+                    <p>The increasing reliance on software in various applications has made the problem of software
+                        vulnerability detection more critical. Software vulnerabilities can lead to security breaches,
+                        data theft, and other negative outcomes. Traditional software vulnerability detection
+                        techniques, such as static and dynamic analysis, have been shown to be ineffective at detecting
+                        multiple vulnerabilities. To address this issue, this study employed a deep learning approach,
+                        specifically Convolutional Neural Networks (CNN), to solve the software vulnerability detection
+                        problem. A 5-split cross-validation approach was used to train and evaluate the CNN model, which
+                        takes tokenized source code as input. The findings indicated that Sherlock successfully detected
+                        multiple vulnerabilities at the function level, and its performance was particularly strong for
+                        CWE-199, CWE-120, and CWE- Other, with an overall high accuracy rate and significant true
+                        positive and true negative values. However, the performance was less reliable for some
+                        vulnerabilities due to the lack of a standardized dataset which will be a future research
+                        direction. The results suggest that compared to current techniques, the proposed deep learning
+                        approach has the potential to substantially enhance the accuracy of software vulnerability
+                        detection.</p>
                 </details>
             </section>
             <section id="introduction">
                 <h2>1. Introduction</h2>
                 <details>
                     <summary>View Introduction</summary>
-                    <p><em>(Please copy and paste the introduction of your thesis here. This section should outline the
-                            research problem, objectives, and the significance of your study.)</em></p>
+                    <p>This chapter will provide an overview of the rise of software vulnerabilities, analyze current
+                        detection methodologies, and establish the need for research on the problem. It will also cover
+                        the author's aim, research motivation, and how difficult the research will be to contribute to a
+                        novel solution. Software vulnerability can be defined as "A security flaw, glitch, or weakness
+                        found in software code that could be exploited by an attacker (threat source)" (Dempsey et al.,
+                        2019, p. 105). The rapid expansion of computer systems and interconnected software has also
+                        resulted in an increase in software vulnerabilities. For example, a 2017 software failure
+                        resulted in 1.7 million USD in financial loss and 268 years of downtime (Hanif et al., 2021).
+                        Furthermore, companies are spending more than 82 per cent more on cyber security in 2021 than
+                        they did in 2020. (State of Cybersecurity Report 2021 | 4th Annual Report | Accenture, 2021)
+                        Such a dramatic increase in investment, interest and software vulnerabilities necessitates a
+                        concern for state-of-the-art detection methods. Current well-known solutions such as firewalls,
+                        user authentication, access control, and cryptography are inadequate for today's cyber security
+                        requirements (Sarker et al., 2020) and detecting vulnerabilities after the software has been
+                        deployed is ineffective. Furthermore, the ideal solution would detect vulnerabilities prior to
+                        deployment. The rise in vulnerabilities found after software products were released indicates
+                        that state-of-the-art vulnerability detection techniques need to be improved to a more efficient
+                        and effective state (Lin et al., 2020). Current detection techniques can be divided into static,
+                        dynamic, and hybrid approaches. Static approaches include techniques such as rule-based
+                        analysis, code similarity detection, and symbolic execution, which rely on source code analysis
+                        and have a significantly higher false positive rate, making those approaches unreliable (Pewny
+                        et al., 2014; Lin et al., 2020). Dynamic approaches include techniques such as fuzzy testing and
+                        taint analysis which has been addressed as having low code coverage issues (Newsome and Song,
+                        2005; Portokalidis, Slowinska and Bos, 2006; Lin et al., 2020). As a result, hybrid approaches
+                        emerged to address the issues raised by both static and dynamic approaches however, they also
+                        seem to have their own limitations and do not lessen the current software vulnerabilities
+                        (Yamaguchi et al., 2014; Lin et al., 2020). Since the existing technique proved ineffective, a
+                        new approach was investigated, and a data-driven machine learning-based approach has shown
+                        promising results in detecting vulnerabilities (Sun et al., 2019; Coulter et al., 2020; Lin et
+                        al., 2020). Despite the fact that artificial intelligence is well-researched in other domains,
+                        there is significantly low research with proof of concepts that have been addressed in software
+                        vulnerability detection. Therefore, it is evident that there is a huge need for research in
+                        artificial intelligence-based software vulnerability detection. Software vulnerabilities have
+                        become a widespread issue for the modern generation, and exploitable vulnerabilities can pose a
+                        threat to computer systems (Lin et al., 2020; Heartbleed Bug, 2020). Although the current
+                        solution can detect single vulnerabilities after software deployment, an effective solution
+                        should detect vulnerabilities prior to deployment (Lin et al., 2020). Despite the fact that
+                        current solutions rely on unsupervised learning-based models, it is suggested and demonstrated
+                        through a successful case study that using deep learning approaches will improve the ability to
+                        detect known and unknown vulnerabilities (Lin et al., 2020; Sonnekalb, Heinze and Mäder, 2021).
+                        Detecting software vulnerabilities after deployment is equivalent to patching a hole in a bucket
+                        full of water because the damage has already been done; therefore, detecting multiple software
+                        vulnerabilities prior to deployment is critical. Software vulnerabilities are becoming a more
+                        widespread problem as we increasingly rely on software components to complete our tasks. This
+                        also increases the risk of becoming a victim of software vulnerabilities. As stated in the
+                        problem domain, the author's primary impetus for researching this domain was the rapid growth of
+                        vulnerabilities (Ryan, 2022). In addition, a victim case study involving the author's friend who
+                        lost almost all of the crucial documents they had on their laptop as a result of an attack led
+                        the author to learn about software vulnerabilities and spark an interest in the topic. Previous
+                        literature mentioned that there is a significant need for an unsupervised approach to
+                        identifying vulnerabilities. Existing solutions are based on a supervised approach which can
+                        only detect known vulnerabilities and current solutions are limited to single vulnerability
+                        detection. Further, existing multi-vulnerability detection solutions are still on the conceptual
+                        level (Hanif et al., 2021; Li et al., 2022; Singh, Grover and Kumar, 2022). Existing detection
+                        methods are missing to address various vulnerabilities which can cause serious problems after
+                        the deployment of the software (Li et al., 2022). A fine-tuned deep-learning solution that can
+                        overcome this problem and as be identified in this project. Software vulnerability detection is
+                        not a new problem; it has been a research concern for a long time. Despite the fact that AI
+                        advancement has created a new variation of the problem, software vulnerability detection with Al
+                        is less researched and also shows promising results which show using Al to detect software
+                        vulnerabilities can be a novel problem to solve (Ghaffarian and Shahriari, 2018; Li et al.,
+                        2022). The existing solutions for detecting software vulnerabilities are based on static and
+                        dynamic detection (Pewny et al., 2014; Lin et al., 2020). Even though there are researchers who
+                        analyzed artificial intelligence-based approaches most of them are conceptual frameworks. (Sun
+                        et al., 2019; Coulter et al., 2020; Lin et al., 2020). As a result, the vacuum for an artificial
+                        intelligence-based solution has yet to be filled. This will pave the path for a novel software
+                        vulnerability detection solution with Al which is also proposed by the author. The anticipated
+                        contributions to the body of knowledge will be made by offering a novel supervised
+                        learning-based model to identify multiple vulnerabilities before the deployment of software. It
+                        has been proposed that detecting multiple vulnerabilities before the software deployment would
+                        be the ideal solution (Lin et al., 2020). Whereas the currently available solutions are
+                        primarily focused on detecting single vulnerabilities after the state of deployment. Therefore,
+                        it is hypothesized to provide an ideal solution which can detect software vulnerabilities prior
+                        to deployment. It has been proposed to use a brand-new ensembled model based on unsupervised
+                        learning to identify software vulnerabilities through the semantics of the code. Since existing
+                        solutions rely on models of unsupervised learning. Therefore, it is proposed to provide an
+                        artificial intelligence-based solution which can detect multiple vulnerabilities in an effective
+                        way. Although there is a substantial body of prior research on software vulnerability
+                        identification, the majority of those publications are conceptual frameworks and related
+                        unsupervised learning techniques (Sonnekalb, Heinze and Mäder, 2021). Even though a supervised
+                        model can considerably improve sensitivity for detecting multiple and unique vulnerabilities,
+                        deploying such a model can be difficult due to a lack of labelled and synthetic datasets
+                        (Sonnekalb, Heinze and Mäder, 2021; Li et al., 2022). Prior works on supervised approaches are
+                        significantly lower compared to other domains, (Sarker et al., 2020) which will pose a challenge
+                        because there are no known paths to follow in this specific domain, which may result in a dead
+                        end. Because of the ever-increasing nature of software vulnerabilities, it was impossible to
+                        overcome them with a single solution and required staying current on less known and zero-day
+                        vulnerabilities. As a result, staying up to date on new case studies will be a major challenge.
+                        Given the foregoing factors, it will be difficult to develop a prototype that can detect
+                        software vulnerabilities using artificial intelligence as the project addresses the
+                        aforementioned challenges. </p>
                 </details>
             </section>
             <section id="literature-review">
                 <h2>2. Literature Review</h2>
                 <details>
                     <summary>View Literature Review</summary>
-                    <p><em>(Please copy and paste the literature review here. This section should summarize relevant
-                            existing research, identify gaps in current knowledge, and establish the context for your
-                            work.)</em></p>
+                    <p>This chapter aims to analyze and review the most significant existing literature on software
+                        vulnerability detection to understand the rise and impacts of software vulnerabilities.
+                        Additionally, it aims to identify challenges in software vulnerability detection by reviewing
+                        the state-of-the-art detection approaches. The author also analyzes the limitations of existing
+                        approaches and how to evaluate and benchmark a software vulnerability detection model. During
+                        the literature review, a concept map was maintained in parallel to simplify the research process
+                        by visualizing an overview of the research. The concept map grew over time to keep up with the
+                        literature review, and the latest version has been attached in the Appendix A - Concept map for
+                        reference. The recent technological advancements in the world have resulted in a rapid increase
+                        in the amount of software being developed. However, these advancements have also led to hidden
+                        flaws in such software, creating vulnerabilities that have caused a massive peak in
+                        vulnerability reports around the world. Despite that the reports on vulnerabilities have reached
+                        all-time high in recent years and continues to trend upwards, with no signs of decreasing
+                        (Skybox Security, 2022; Zero Day Initiative, 2023). Software vulnerabilities can have a drastic
+                        impact on organizations and individuals, including financial losses, denial of service,
+                        reputational damage, data loss, and legal issues. In some cases, a single vulnerability can
+                        cripple an entire business. For instance, LastPass, a password manager experienced a data breach
+                        in August 2022. Over 25 million users' personal information was compromised, including their
+                        names, email addresses, billing addresses, and encrypted passwords. A vulnerability in
+                        LastPass's development environment was responsible for the breach. LastPass has since patched
+                        the vulnerability and is investigating the breach with law enforcement. However, the damage had
+                        already been done, and LastPass has lost millions of users and continues to lose (Coker, 2023;
+                        Tomaschek, 2023). And also according to Aiyer et al., (2022) at the current rate of growth, the
+                        annual cost of cyberattacks will be around \$10.5 trillion by 2025, and organizations worldwide
+                        spent around \$150 billion on cybersecurity in 2021, with that figure expected to rise further.
+                        Having a reliable software vulnerability detection methodology is critical in order to prevent
+                        massive disasters in the future. Therefore, it is necessary to study the current
+                        state-of-the-art detection techniques and evaluate them to identify their strengths and
+                        weaknesses. The current software vulnerability detection methodologies can be primarily
+                        classified into two major categories: code analysis-based detection and data-driven detection.
+                        (Lin et al., 2020). Code analysis-based detection is a fundamental technique that can be further
+                        categorized into several sub-techniques, including static analysis, dynamic analysis, hybrid
+                        analysis, fuzz testing, and traditional analysis. Static analysis examines the source code of
+                        software without running it and can be used to detect vulnerabilities that are not exposed when
+                        the application is running. Dynamic analysis examines the behavior of software while it is
+                        running and can be useful to detect vulnerabilities that are exposed when it is running. Hybrid
+                        analysis combines both static and dynamic analysis. Fuzz testing puts random and unexpected
+                        inputs to the software to see how it reacts, which can be used to detect vulnerabilities that
+                        can be caused by unexpected inputs. Traditional analysis involves manually reviewing the code
+                        for potential vulnerabilities (Cowan et al., 1998; Hanif et al., 2021). Each of these code
+                        analysis techniques has its own limitations, such as a high false positive rate, low code
+                        coverage, time consumption, the need for a level of expertise, and in most cases, they become
+                        inefficient when considering the massive recent spike in software vulnerability reports.
+                        Therefore, the necessity for new, more sophisticated techniques has emerged. (Ghaffarian and
+                        Shahriari, 2018; Lin et al., 2020; Hanif et al., 2021). In addition to code analysis techniques,
+                        researchers are looking into data-driven approaches like data science and AI to improve software
+                        vulnerability detection. While data science-based methods are widely used in other fields, they
+                        are relatively new in the field of software security and have recently gained significant
+                        attention due to their effectiveness (Russell et al., 2018). Large datasets are used to train
+                        machine learning models that can identify patterns and anomalies indicative of software
+                        vulnerabilities. Unlike traditional code analysis techniques, data-driven approaches have the
+                        potential to provide higher accuracy, cover a larger portion of the codebase, and reduce false
+                        positives (Ghaffarian and Shahriari, 2018). Although this field has its own challenges, data
+                        scarcity is one of the most obvious ones, and it is a major controlling factor (Lin et al.,
+                        2020). Another significant challenge is that even after using a data-driven approach, it can be
+                        difficult to interpret the final output, which in most cases is not easily understandable, like
+                        labels in arrays or lists (Ghaffarian and Shahriari, 2018). Additionally, there are other
+                        challenges, such as the ever-growing nature of this problem, which requires continuous
+                        involvement and improvement. There is also a high risk of misclassification, which can defeat
+                        the whole purpose (Bilgin et al., 2020). </p>
                 </details>
             </section>
             <section id="methodology">
                 <h2>3. Methodology</h2>
                 <details>
                     <summary>View Methodology</summary>
-                    <p><em>(Please copy and paste the methodology section here. Describe your research design, data
-                            collection methods, tools used, and the analytical techniques employed.)</em></p>
+                    <p>The research methodologies that were picked in order to complete the project quickly and
+                        affordably are listed in the following table: Positivism was chosen as the research philosophy
+                        because the study does not reflect any personal beliefs, and even though the author intended to
+                        collect qualitative data, all such data was intended to be converted into quantitative data in
+                        the end. Since the purpose of the research is to test an established hypothesis, the deductive
+                        approach was chosen. Since research is intended to test a predetermined hypothesis, experimental
+                        research has been chosen and archival research methodology was also used because the research
+                        also examined a variety of previously published data and literature. Additionally, a survey
+                        research strategy has been used to collect data via questionnaires and interviews. Since
+                        questionnaires and interviews are to be facilitated, In terms of questionnaires and structured
+                        interviews, the choice of method is multi. Given the need to collect data at various points
+                        during the research, such as before and after implementation, longitudinal research was chosen
+                        as the time horizon for the study. Surveys, questionnaires, interviews, statistics, pie charts,
+                        pivot charts, organizational reports and records, annual forecasts, and legitimate news sources
+                        have been chosen to be used as data collection techniques and procedures. As a software
+                        development model, incremental prototyping is chosen, in which a prototype is built, tested, and
+                        reworked until an acceptable prototype is achieved. Surveying has been chosen as a method of
+                        gathering requirements. It has also been proposed to use structured questionnaires, and
+                        structured interviews to gather requirements. Virtual tools such as Google forms and Google meet
+                        will be used for these purposes. Experiments, both controlled and uncontrolled, will also be
+                        used to test the hypothesis. Besides that, literature reviews will be continued throughout the
+                        research period in order to stay current on the field and grasp current research requirements.
+                        Throughout the project, agile design has been chosen as the design methodology. Because it is
+                        flexible enough to build, measure, learn, and repeat the process until a desirable design is
+                        achieved, and it also incorporates the Project management methodology. The multi-paradigm
+                        approach was chosen since the project demands the use of multi-paradigm concepts, languages, and
+                        frameworks (such as Python, JavaScript, etc.). It is intended that prototype testing be carried
+                        out by presenting the prototype to targeted users and collecting their feedback. Additionally,
+                        the model is to be assessed using the proper matrices such as F1 score, Confusion matrix etc.
+                        The benchmarking will also be investigated by contrasting the suggested method with
+                        state-of-the-art approaches. It is necessary to follow end-to-end artificial intelligence
+                        research procedures as an artificial intelligence-based solution. There is a data collection
+                        process for developing a solution where the synthetic datasets for known vulnerabilities are
+                        identified and data is entered into the data processing stage where the data cleaning and
+                        handling of missing data is done and also the feature engineering of data is completed after the
+                        model training where the algorithm is selected and evaluated with the selected data and finally
+                        the model is deployed. Kanban has been chosen as the project management methodology since the
+                        author is well-versed in Kanban and all major tools, including GitHub and Microsoft To-Do, have
+                        built-in Kanban board support to visualize and manage tasks. The Gantt chart has been moved to
+                        Appendix B - Ganntchart. The following lists the hardware, software, data, and skill
+                        requirements that were necessary to finish this project. Operating system (Windows/Linux/macOS)
+                        - Linux is the best platform for building, training, and testing the model, while Windows is
+                        best for developing the user interface and documentation. Python/R - Python will be chosen over
+                        R because of its low learning curve and wide availability of machine learning libraries. Google
+                        colab/Jupiter - Google colab will be preferred over Jupiter due to the availability of virtual
+                        machines, which will significantly improve execution time and resource usage. TensorFlow/
+                        Keras/Conda - Keras and TensorFlow were chosen for their compatibility with Google collab and
+                        speed; flexibility was also taken into account. JavaScript/Kotlin/PHP - Because of its
+                        versatility, JavaScript was chosen to implement the web interface. VS
+                        code/Fleet/Sublime/IntelliJ/PyCharm - VS Code and Fleet were chosen over other code editors and
+                        IDEs because of their low weight and high level of compatibility. Zotero/Research rabbit
+                        /Mendeley - Due to its open-source nature, compatibility with other research tools like Research
+                        Rabbit, and support for an enormous number of add-ons, Zotero has been chosen over Mendeley.
+                        GitHub/GitLab/Bitbucket - Due to its extensive selection of integrated actions and user-
+                        friendliness, GitHub has been chosen. Google Drive/One Drive/Dropbox Google drive was chosen due
+                        to its high compatibility and reliability. Because of their ease of use and Office 365/Google
+                        workspace/Canva/SparkPost feature richness, Office 365 and Canva were chosen for documentation
+                        and the creation of diagrams and presentation materials, respectively. To complete
+                        high-resource-demanding tasks such as training, building, and testing models, as well as storing
+                        and managing data, the following hardware requirements must be met. Processor: at least Intel(R)
+                        Core (TM) i7 RAM: at least 8 GB usable GPU: NVIDIA GeForce MX130 or above Diskspace: at least
+                        50GB Code samples with synthetic or real-time know vulnerabilities. From GitHub and previous
+                        works. Code samples without vulnerabilities - From Kaggle, GitHub and previous works. Academic
+                        writing. Ability to build the required artificial intelligence model Ability creates user
+                        interface and integrates the model. Identified risks have been ordered and listed below based on
+                        the risk exposure: Losing access to files, documentation, and source code because of hardware
+                        problems or other problems. Maintaining a GitHub repository and fetching on a regular basis and
+                        integrating Google drive for desktop to automate file backups. Unable to complete the research
+                        due to sickness. Maintain a healthy lifestyle and prioritize core functions to achieve a minimum
+                        viable product sooner. Unable to complete the research due to lack of knowledge. Consult with
+                        experts to obtain learning resources and to identify resources through LR, as well as attend all
+                        academic help sessions. Unable to complete the research within the allocated research period.
+                        Prioritize core functionalities and maintain a progressive Kanban board. Unpublished research
+                        with a similar approach got published and pop out of nowhere Continuous literature review and
+                        ensure the novelty of the approach.</p>
                 </details>
             </section>
-            <section id="results-discussion">
-                <h2>4. Results & Discussion</h2>
+            <section id="srs">
+                <h2>4. SRS</h2>
                 <details>
-                    <summary>View Results & Discussion</summary>
-                    <p><em>(Please copy and paste the results and discussion here. Present your findings, interpret
-                            them, and discuss their implications. You can include key charts or figures as images if
-                            desired by placing them in the 'public' folder and linking them using &lt;img
-                            src="image_name.png" alt="description"&gt;.)</em></p>
+                    <summary>View SRS</summary>
+                    <p>This chapter is based on identifying potential stakeholders through the use of rich picture and
+                        onion diagrams in order to gather requirements using appropriate instruments and identify their
+                        use case in order to develop functional and non-functional prototype requirements. Figure 4.2.1
+                        is the rich picture of the project which is an overview of the project including structures,
+                        processes and concerns related to the project and this will be used to identify stakeholders of
+                        this project. An overview of the stockholders identified from the rich picture has been
+                        displayed with an onion diagram in Figure 4.3.1. Based on the identified stakeholders to gather
+                        requirements interviews, literature review and brainstorming has been selected as gathering
+                        instruments. Reason and relevant stakeholders have been provided below. Literature review is a
+                        methodology used in software vulnerability research to gather information about existing
+                        vulnerabilities and solutions. It involves searching and analyzing research papers, articles and
+                        publications related to the software system being evaluated, in order to identify potential
+                        vulnerabilities and understand how to detect them. The goal is to gain a deep understanding of
+                        the problem and existing solutions and to identify any gaps or limitations that need to be
+                        addressed in the detection process. It is an important step in the vulnerability detection
+                        process and helps to ensure that the methods used are well-informed and effective. Interviewing
+                        experts is a methodology used in software vulnerability detection projects, where experts in
+                        cybersecurity, machine learning and software testing are interviewed to gather information about
+                        common vulnerabilities and best practices for detection. The goal is to gather insights and
+                        information to help design and validate the vulnerability detection system. It's an important
+                        step to make sure that the system is well-informed and effective. Brainstorming with fellow
+                        researchers and software developers is a methodology where a group of researchers and developers
+                        come together to share ideas and generate solutions for identifying and mitigating
+                        vulnerabilities in software systems. The goal is to generate a wide range of ideas and solutions
+                        and identify any potential vulnerabilities that may have been overlooked To simply understand
+                        the requirements a context diagram (Figure 4.7.1) show the interactions and relationships of a
+                        system with its external environment. It defines the scope and boundaries of the system and
+                        serves as a basis for further analysis. It can also be considered as a level 0 data flow
+                        diagram. Figure 4.8.1 is the use case diagram for the system which displays the primary use
+                        cases of the system with actors, use cases and relevant annotations. In order to prioritize
+                        gathered requirements MOSCOW technique has been used. In this chapter, the rich picture of the
+                        project evolves and from that stakeholders were identified and analyzed. Further to gather
+                        requirements the relevant tools were selected, and the findings were discussed. And also, the
+                        context diagram and use case diagrams were used to further elaborate the system.</p>
+                </details>
+            </section>
+            <section id="slep-issues">
+                <h2>5. SLEP Issues</h2>
+                <details>
+                    <summary>View SLEP Issues</summary>
+                    <p>This chapter discusses the social, legal, ethical, and professional concerns surrounding the
+                        research, as well as the mitigations implemented to address these issues. The University of
+                        Westminster Code of Practice Governing the Ethical Conduct of Research 2020-21 and the BCS Code
+                        of Conduct were referred to in order to learn the standards and practices necessary to ensure
+                        compliance with social, legal, ethical and professional guidelines. Although the end results of
+                        the software are reliable, there are instances where false positive and false negative
+                        classifications can occur. This may lead to inaccurate interpretation and can cause financial
+                        losses, as well as damage to the software's reputation and reliability, which defeats the
+                        purpose of the research. To avoid these issues, proper testing with real-world data and ideal
+                        validation of the software is necessary before commercial use. Furthermore, a confidence level
+                        has been implemented in the results (Figure 5.3.1) to narrow down the decision-making process of
+                        the user, which will serve as an effective mitigation for this issue. Legal responsibility has
+                        been considered throughout the research, particularly when conducting interviews. The consent of
+                        the participants was obtained, and all personally identifiable information was removed from the
+                        interpretation of such participation. The required dataset was obtained from the Open Science
+                        Framework (OSF), which does not contain any personally identifiable information. To ensure
+                        compliance with legal requirements, the CC BY 4.0 license was obtained through a legitimate
+                        email from the author. Additionally, all software, tools, and resources used for this research
+                        are fully licensed through either personal or institutional privileges of the author. According
+                        to the Westminster Code of Practice, this research falls under Class 1, which pertains to
+                        research with no or minimal ethical implications, where risks will not exceed those experienced
+                        in normal day-to-day life. This type of research is considered to have no or minimal ethical
+                        implications and does not normally require ethical approval by a Research Ethics Committee
+                        (University of Westminster Code of Practice Governing the Ethical Conduct of Research, 2021).
+                        Nonetheless, throughout the research, ethical clearance and practices were followed to maintain
+                        the code of conduct. Informed consent was obtained from all interview participants, and their
+                        names were used with their permission. No other unnecessary personally identifiable information
+                        was gathered. Furthermore, all referenced works and resources were properly cited and given
+                        credit. The professional integrity of this research was ensured by adhering to the BCS Code of
+                        Conduct and following best practices. The author also remained open to reviews and constructive
+                        feedback from alternative viewpoints to improve the project. Staying informed on parallel
+                        technological advancements further refined the research project and demonstrated the author's
+                        professional competence. The research was conducted with the university's best interests in
+                        mind, and the author takes full responsibility for all their actions. To ensure data safety and
+                        confidentiality, all research-related resources were stored in strong biometric-protected
+                        devices, with regular backups kept in the university-provided Google Cloud. Additionally,
+                        implementations were stored in GitHub as a private project to maintain proper version control.
+                        This chapter addressed the crucial components of the social, legal, ethical, and professional
+                        concerns of this report. It also discussed the mitigation approaches taken to address these
+                        concerns. </p>
+                </details>
+            </section>
+            <section id="design">
+                <h2>6. Design</h2>
+                <details>
+                    <summary>View Design</summary>
+                    <p>This chapter is focused on the design of the system by defining design goals and from that
+                        getting the high-level and low-level architecture of the systems. This chapter also includes the
+                        author's design paradigm selection and relevant diagrams for that as well as the expected UI of
+                        the system. The layered diagram for the vulnerability detection system is comprised of three
+                        main layers: the UI layer, the functionality layer, and the database layer. The UI layer is the
+                        interface with which users interact. It has an input field for source code files and a result
+                        field for displaying the results of the analysis. The functionality layer is linked to the input
+                        field, which processes the source code and performs the vulnerability analysis. The
+                        functionality layer is where the core processing and analysis occur. This layer contains the
+                        model, which is responsible for preprocessing, feature selection, model building, and
+                        deployment. The model is connected to the result field in the UI layer to display the analysis
+                        results. The vulnerability detection process happens in this layer. Further explanation of the
+                        CNN layers will have been discussed in Implementation. The database layer contains the dataset
+                        and validation dataset. The dataset is used to train the model and the validation dataset is
+                        used to validate the model. The dataset is connected to the model in the functionality layer to
+                        provide the training data. Each layer serves a specific purpose in the overall operation of the
+                        system, and they collaborate to provide an efficient and effective solution for Al-based
+                        software vulnerability detection. The separation of these layers into distinct components also
+                        makes future maintenance and upgrades easier. SSADM (Structured Systems Analysis and Design
+                        Method) has been chosen to design the software vulnerability detection AI because of its
+                        structured and systematic approach, which can help ensure that all aspects of the system are
+                        thoroughly considered and that the final design meets the requirements of the other hand OOAD
+                        (Object-Oriented Analysis and Design) is an object and class-based paradigm which is not
+                        appropriate for a growing system like this. A Level 1 Data Flow Diagram (DFD) is a graphical
+                        representation of a system's data flow. It divides the system into smaller, more manageable
+                        components and illustrates the relationships between inputs, processes, outputs, and storage as
+                        shown below. A Level 2 Data Flow Diagram (DFD) is a more detailed representation of a system
+                        than a Level 1 DFD. It provides a deeper understanding of a system's processes by breaking them
+                        down into smaller, sub-processes and displaying the data flow between these sub-processes. Level
+                        2 DFDs provide a comprehensive view of a system, allowing potential problems and areas for
+                        improvement to be identified more easily. The following is the DFD for process 2.0 which is the
+                        main process of this system. The following is a component diagram that shows the relationship
+                        between components in a system. It provides a high-level representation of how individual
+                        components work together to achieve a common goal. The following is an activity diagram that
+                        shows the flow of activities in a system it models the steps taken to achieve a goal and it can
+                        be used to understand and improve the flow of activities in a system. The system UI is intended
+                        have a place to have a main page with a place to upload source code, a review page to look up
+                        the upload process and a result page where the final result will be displayed along with the
+                        button to generate a detailed report as shown in the below wireframes. This protype UI has been
+                        changed based on the expert view and final design was implemented In this chapter, the design
+                        goals, architecture diagrams, design diagrams, and low-level prototypes for the vulnerability
+                        detection system were thoroughly documented. This documentation provides a clear understanding
+                        of the design and architecture of the system, including its various components and how they
+                        interact with each other and an overview of the user interface as well.</p>
+                </details>
+            </section>
+            <section id="implementations">
+                <h2>7. Implementations</h2>
+                <details>
+                    <summary>View Implementations</summary>
+                    <p>This chapter discusses implementation-related topics, including the technology stack, dataset
+                        selection, chosen development framework, programming languages, libraries, and IDEs used to
+                        develop the proposed solution. The technology stack related to each layer has been pictured as
+                        an overview in the following diagram. The Draper VDISC dataset was chosen for this vulnerability
+                        detection system project. It contains 1.27 million functions from open-source software and has
+                        been labelled for potential vulnerabilities through static analysis. The data is divided into
+                        80% for training, 10% for validation, and 10% for testing and is stored in 1 GB HDF5 files. Each
+                        function's source code is stored as a string and has five binary labels to indicate the presence
+                        of vulnerabilities such as CWE- 120, CWE-119, CWE-469, CWE-476, and others. This dataset was
+                        created by a research group at Boston University for their research and open source to
+                        contribute to future research. (Russell et al., 2018) The implementation consists of two parts.
+                        The first part is a notebook where each major stage of development is presented as a markdown
+                        table of contents. The second part is the app.py file, which defines the Streamlit app and
+                        connects it to the saved model. All necessary files have been uploaded to the GitHub repository,
+                        and the link to the repository is provided below. The primary implementation processes,
+                        including the layers of CNN, the module building process, and screenshots of app.py, are
+                        provided as snippets below. This code is creating a CNN with an input layer followed by an
+                        embedding layer with 13 vector sizes follows by a convolution layer with 512 input filters and
+                        kernel size 9 ReLU activation function has been used for better optimization followed by a
+                        pooling layer followed with flatten layer that follows with 2 dense layers and 5 output layers
+                        with SoftMax activation function has been created. Then a custom optimizer has been defined with
+                        learning rate and an Adam optimizer has been used. Finally, a model summary has been printed.
+                        Here the model training has been done with 20 iterations/epochs and the model history and model
+                        have been saved for later uses like evaluation and deployment. The app.py file screen shot can
+                        be found in Appendix C - Implementation (App.py). Further, the whole implementation of the
+                        project will be available here on GitHub. The user interface has been moved to Appendix D - User
+                        interface. This chapter covered the implementation components of the selected tools, along with
+                        a justification for the project. Additionally, it includes visual representations of the
+                        implementation snippets of the primary project components.</p>
+                </details>
+            </section>
+            <section id="testing">
+                <h2>8. Testing</h2>
+                <details>
+                    <summary>View Testing</summary>
+                    <p>This chapter presents a logical evaluation of Sherlock, which is a significant aspect of the
+                        research. The evaluation begins by outlining the objectives and goals of the testing process. It
+                        then proceeds to assess all components of Sherlock using relevant metrics, including both
+                        functional and non-functional requirements. Finally, the chapter discusses the limitations of
+                        the testing process. The primary goal of testing is to ensure that Sherlock works as expected.
+                        The following objectives were developed to ensure the achievement of this goal, 1. Test all
+                        components of Sherlock to ensure they are functioning properly and producing accurate outputs.
+                        2. Verify that all "Must have" and "Should have" functional requirements outlined in the SRS
+                        have been met in Sherlock. 3. Verify that all "Must have" and "Should have" non-functional
+                        requirements stated in the SRS have been met in Sherlock. 4. Identify any potential defects or
+                        bugs in Sherlock through testing. In order to organize the testing process two test criteria
+                        were introduced as follows, The original dataset was divided into three parts, namely training,
+                        validation, and testing, using an 80:10:10 ratio. All these splits underwent the same data
+                        processing and tokenization process before being used for training and evaluation. The training
+                        split was used to assess the performance of the model and measure specific evaluation metrics
+                        identified in the Evaluating software vulnerability detection. and evaluation was implemented as
+                        shown in Figure 8.4.1. The performance of the model in classifying each vulnerability has been
+                        assessed using a confusion matrix for each vulnerability, as shown in Figure 8.5.1. Overall, the
+                        model appears to be effective in classifying true negatives. However, the main goal of this
+                        model is to identify true positive cases, and its performance in classifying true positives for
+                        CWE-469 and CWE-476 is not as strong. The reasons for these issues will be discussed in coming
+                        chapters. It should be noted that the major cause of these issues is the unbalanced nature of
+                        the dataset. In addition to the confusion matrix, Accuracy, precision, recall, F1 score, and AUC
+                        values were chosen as performance metrics based on the literature review. The model was
+                        evaluated for each CWE vulnerability using these performance metrics, and the results are
+                        presented in the Table 8.6.1. The high accuracy and AUC values suggest that the overall model
+                        performance is good in terms of various vulnerabilities. However, the low precision and recall
+                        values indicate a high false positive and false negative rate. The evaluation indicates that the
+                        model's performance is good and reliable for CWE-199 and CWE-120. However, its performance is
+                        poor, particularly for CWE-469 and CWE-476. This suggests that the model needs to be improved in
+                        terms of its ability to correctly classify instances across all categories. The detailed
+                        classification report and ROC curves can be found in the Appendix C - Test results. As
+                        previously mentioned in the section 2.8, due to the lack of a standard dataset, it is no longer
+                        appropriate to perform benchmarking. However, the model's metrics have been compared to previous
+                        works for detecting CWE-199 to provide a better comparative view. Baseline model was taken based
+                        as suggested by Bilgin et al., (2020) and even though the sherlock is capable of detecting
+                        multiple vulnerabilities the performance were compared only for CWE-199 since the baseline model
+                        cannot do so. Test was performed for all the implemented functional requirements identified from
+                        the Functional requirements section as displayed in the Table 8.8.1. The modules of Sherlock
+                        have been tested as shown in the Table 8.9.1 Non-functional requirements gathered from the
+                        Non-Functional requirements section has been tested as discussed below. The accuracy of
+                        Sherlock's ability to detect software vulnerabilities was clearly evaluated using relevant
+                        metrics in sections 8.6 and 8.7 The reliability of a classification system like Sherlock is
+                        primarily evaluated using the values of the confusion matrix, and a detailed discussion of the
+                        confusion matrix can be found in section 8.5 User experience has been tested with usability
+                        heuristics proposed by Jakob Nielsen, (1994) and the discussion is presented with proofs in
+                        Table 8.13.1. The primary limitation of the testing is the absence of a proper benchmarking
+                        model and dataset. This was addressed by using a baseline model proposed by Bilgin et al.,
+                        (2020). However, the baseline model can only predict one vulnerability at a time, which may
+                        still be considered a limitation. The lack of a standard dataset also restricted the author from
+                        performing dataset benchmarking. Additionally, some of the secondary non-functional requirements
+                        were not tested due to their less significant and subjective nature. As the saying goes, numbers
+                        and results speak better than words. The evaluation of Sherlock demonstrated that it is a
+                        promising solution for the addressed problem. However, a good evaluation also identifies areas
+                        for improvement. The evaluation of the model showed that although its performance is reliable
+                        for most vulnerabilities, it struggles with certain ones. Through the evaluation, the author was
+                        able to identify the cause of this issue, which was an unbalanced dataset. Despite applying
+                        known techniques such as random sampling, resampling etc. there is still room for improvement,
+                        which will be addressed in future work.</p>
+                </details>
+            </section>
+            <section id="evaluation">
+                <h2>9. Evaluation</h2>
+                <details>
+                    <summary>View Evaluation</summary>
+                    <p>This chapter presents a logical evaluation of Sherlock, starting with the approaches taken and
+                        the evaluation criteria. It then includes a critical self-evaluation by the author and thematic
+                        analysis of evaluations provided by evaluators of specific categories. Finally, the chapter
+                        discusses the limitations of the evaluation process. Sherlock is composed of a machine learning
+                        model that requires a quantitative evaluation and a user interface that requires a qualitative
+                        evaluation. As such, both quantitative and qualitative evaluations were conducted. Quantitative
+                        evaluations were carried out using relevant metrics, while qualitative evaluations were
+                        performed through thematic analysis of expert and user interviews, as well as survey results.
+                        Selected evaluation criteria and their purposes were discussed in the Table 1.11.1. The
+                        evaluators for the project were categorized as displayed in Table 9.5.1 in order to narrow down
+                        the evaluation. The thematic analysis findings for each criterion and categories were presented
+                        in Table 9.6.1. The application was deployed and hosted in Streamlit cloud for evaluation here.
+                        One of the main limitations in evaluating the project is the lack of available experts who have
+                        experience with similar projects. Despite the author's attempts to contact experts in each of
+                        the selected categories, many were unable to participate due to their busy schedules. As a
+                        result, the number of evaluators for the project was limited. However, the author was able to
+                        mitigate this limitation by continuously seeking feedback from the available evaluators to
+                        improve the project. The functional requirements were evaluated in section 8.8 and the
+                        non-functional requirements were evaluated in section 8.10 And all these requirements were
+                        successfully implemented as proposed. This chapter focuses on the evaluation of Sherlock, a
+                        software system, and presents the approaches and criteria used to evaluate it, as well as the
+                        author's own evaluation. The chapter also categorizes the evaluators and presents their
+                        evaluation results. Finally, the chapter discusses the limitations of the evaluation and
+                        provides clear guidance on where to find functional and non-functional requirements.</p>
                 </details>
             </section>
             <section id="conclusion">
-                <h2>5. Conclusion</h2>
+                <h2>10. Conclusion</h2>
                 <details>
                     <summary>View Conclusion</summary>
-                    <p><em>(Please copy and paste the conclusion here. Summarize your main findings, discuss the
-                            contributions of your research, acknowledge any limitations, and suggest areas for future
-                            research.)</em></p>
+                    <p>This chapter is a conclusion for this PSPD which analyses the deviation from the proposal and
+                        initial test results were included within also a demo has been attached for a better
+                        understanding of the problem and system. The aim of the research is to design, develop and
+                        evaluate a novel software vulnerability detection system with artificial intelligence. The aim
+                        of the research was successfully achieved through the design, development, and evaluation of a
+                        deep learning software vulnerability detection system that can detect multiple vulnerabilities
+                        from source code. To achieve this, the author established primary research objectives and
+                        learning outcome for the module, as shown in the Table 10.2.1. The module offered through the
+                        courses and knowledge that the author used for the completion of this project was discussed in
+                        Table 10.3.1 The author's existing research and development skills were instrumental in the
+                        successful completion of this project. In addition, the machine learning and deep learning
+                        skills acquired from the modules, as well as a personal curiosity and interest, proved to be
+                        valuable assets. Furthermore, the author's experience in writing blogs on their website was
+                        leveraged in preparing the project reports. The following skills were obtained throughout this
+                        project, Knowledge in software vulnerabilities domain: This research provided the author with a
+                        wealth of knowledge about software vulnerabilities, their impact, severe vulnerabilities,
+                        existing technologies in use, and more. Developing a deep learning model: The author gained a
+                        comprehensive understanding of various deep learning approaches and architectures and learned
+                        how to select models to address specific problems. Furthermore, the author learned how to
+                        benchmark models, evaluate them using different metrics, and conduct testing. Deploying models
+                        with Streamlit: The author also learned about Streamlit, an emerging technology used to create
+                        Graphical User Interfaces (GUIs) integrated with deep learning models, and how to host a web
+                        application in Streamlit. The learning outcomes of the Final year project module, how it was
+                        achieved, and their status is discussed in Table 10.2.1. Some major challenges faced while doing
+                        this research and the mitigation process to overcome the research has been discussed in Table
+                        10.7.1. There was a significant deviation from the original schedule (Appendix B - Ganntchart)
+                        projected for this project and using an agile approach the author manages to overcome this and
+                        submit the deliverables on time. The following are the identified limitations of Sherlock, Even
+                        though the model performance is good for most of the vulnerabilities, model performance is not
+                        that good for some vulnerabilities which can be considered as a limitation. Including the above
+                        performance issue and some other issues were caused by the unbalanced dataset even after the
+                        approaches tried to balance the dataset this characteristic remains so; this can be considered
+                        as a limitation of research. System is limited to C and C++ functions. Sherlock opened a whole
+                        new path for data-driven multiple vulnerability detection and the potential it creates for
+                        future research can be addressing the following, Creating a balanced labelled dataset and using
+                        that to train the proposed model can bring out more robust and ground braking performance which
+                        can outperform the proposed model. Expanding the coverage of vulnerabilities could be a valuable
+                        avenue for future research. Training the model on source code from other programming languages,
+                        such as Python, and creating a separate output split could enhance the model's coverage to
+                        incorporate other programming languages. Ensemble the model with and NLP component might be a
+                        promising new landscape to check for. Additionally applying this model for other problems can
+                        also be a future research area. The author was able to achieve all the contributions mentioned
+                        in Contribution to the body of knowledge section with a system to detect multiple
+                        vulnerabilities prior to deployment from source code which utilizes a deep neural network with
+                        five output splits. Sherlock is a product of one-year consistent efforts, dedication of the
+                        author. Initially, this was just a conceptual idea now seeing it as product it feels good.
+                        Sherlock is proof that data driven approaches can be used to detect multiple vulnerabilities in
+                        software and it can be more reliable and effective than the state of art techniques. Primarily
+                        the contribution of Sherlock relay on its ability to detect multiple vulnerabilities in source
+                        code prior to deployment and using a deep neural network with five output splits. Sherlock opens
+                        a new research space for future researchers which will continue the legacy of Sherlock. Finally,
+                        the name Sherlock is inspired by a fictional detective who stops crimes even before they occur,
+                        similarly, Sherlock will stop vulnerabilities even before they do the damage.</p>
                 </details>
             </section>
             <section id="references">
                 <h2>References</h2>
                 <details>
                     <summary>View References</summary>
-                    <p><em>(Please copy and paste your list of references here. Ensure consistent formatting as per your
-                            thesis guidelines.)</em></p>
+                    <p>Aiyer, B. et al. (2022). New survey reveals \$2 trillion market opportunity for cybersecurity
+                        technology and service providers. Bilgin, Z. et al. (2020). Vulnerability Prediction From Source
+                        Code Using Machine Learning. IEEE Access, 8, 150672-150684. Available from
+                        https://doi.org/10.1109/ACCESS.2020.3016774. Coker, J. (2023). The LastPass Breaches: Password
+                        Managers in the Spotlight. Infosecurity Magazine. Available from
+                        https://www.infosecurity-magazine.com/news- features/lastpass-breaches-password/ [Accessed 28
+                        April 2023]. Coulter, R. et al. (2020). Data-Driven Cyber Security in Perspective-Intelligent
+                        Traffic Analysis. IEEE Transactions on Cybernetics, 50 (7), 3081-3093. Available from
+                        https://doi.org/10.1109/TCYB.2019.2940940. Cowan, C. et al. (1998). StackGuard: Automatic
+                        Adaptive Detection and Prevention of Buffer- Overflow Attacks. USENIX. Dempsey, K. et al.
+                        (2019). Automation Support for Security Control Assessments: Software Vulnerability Management.
+                        Available from https://doi.org/10.6028/NIST.IR.8011-4-draft [Accessed 31 October 2022].
+                        Ghaffarian, S.M. and Shahriari, H.R. (2018). Software Vulnerability Analysis and Discovery Using
+                        Machine-Learning and Data-Mining Techniques: A Survey. ACM Computing Surveys, 50 (4), 1-36.
+                        Available from https://doi.org/10.1145/3092566. Hanif, H. et al. (2021). The rise of software
+                        vulnerability: Taxonomy of software vulnerabilities detection and machine learning approaches.
+                        Journal of Network and Computer Applications, 179, 103009. Available from
+                        https://doi.org/10.1016/j.jnca.2021.103009. Heartbleed Bug. (2020). Available from
+                        https://heartbleed.com/ [Accessed 31 October 2022]. Hu, Y. (2019). A Framework for Using Deep
+                        Learning to Detect Software Vulnerabilities. Available from
+                        http://urn.kb.se/resolve?urn=urn:nbn:se:liu:diva-164112 [Accessed 9 December 2022]. Jakob
+                        Nielsen. (1994). 10 Usability Heuristics for User Interface Design. Nielsen Norman Group.
+                        Available from https://www.nngroup.com/articles/ten-usability-heuristics/ [Accessed 9 May 2023].
+                        Li, Z. et al. (2018). VulDeePecker: A Deep Learning-Based System for Vulnerability Detection.
+                        Proceedings 2018 Network and Distributed System Security Symposium. 2018. Available from
+                        https://doi.org/10.14722/ndss.2018.23158 [Accessed 1 May 2023]. Li, Z. et al. (2022). SySeVR: A
+                        Framework for Using Deep Learning to Detect Software Vulnerabilities. IEEE Transactions on
+                        Dependable and Secure Computing, 19 (4), 2244- 2258. Available from
+                        https://doi.org/10.1109/TDSC.2021.3051525. Lin, G. et al. (2020). Software Vulnerability
+                        Detection Using Deep Neural Networks: A Survey. Proceedings of the IEEE, 108 (10), 1825-1848.
+                        Available from https://doi.org/10.1109/JPROC.2020.2993293. Newsome, J. and Song, D. (2005).
+                        Dynamic Taint Analysis for Automatic Detection, Analysis, and Signature Generation of Exploits
+                        on Commodity Software. Pewny, J. et al. (2014). Leveraging semantic signatures for bug search in
+                        binary programs. Proceedings of the 30th Annual Computer Security Applications Conference. ACSAC
+                        '14. 8 December 2014. New York, NY, USA: Association for Computing Machinery, 406-415. Available
+                        from https://doi.org/10.1145/2664243.2664269 [Accessed 31 October 2022]. Portokalidis, G.,
+                        Slowinska, A. and Bos, H. (2006). Argos: an emulator for fingerprinting zero- day attacks for
+                        advertised honeypots with automatic signature generation. ACM SIGOPS Operating Systems Review,
+                        40 (4), 15-27. Available from https://doi.org/10.1145/1218063.1217938. Russell, R.L. et al.
+                        (2018). Automated Vulnerability Detection in Source Code Using Deep Representation Learning.
+                        Available from https://doi.org/10.48550/arXiv.1807.04320 [Accessed 7 November 2022]. Ryan.
+                        (2022). Project Zero: The More You Know, The More You Know You Don't Know. Project Zero.
+                        Available from https://googleprojectzero.blogspot.com/2022/04/the-more-you-
+                        know-more-you-know-you.html [Accessed 30 October 2022]. Sarker, I.H. et al. (2020).
+                        Cybersecurity data science: an overview from machine learning perspective. Journal of Big Data,
+                        7 (1), 41. Available from https://doi.org/10.1186/s40537- 020-00318-5. Singh, K., Grover, S.S.
+                        and Kumar, R.K. (2022). Cyber Security Vulnerability Detection Using Natural Language
+                        Processing. 2022 IEEE World AI IoT Congress (AlloT). 6 June 2022. Seattle. WA. USA: IEEE,
+                        174-178. Available from https://doi.org/10.1109/AIIoT54504.2022.9817336 [Accessed 29 September
+                        2022]. Skybox Security. (2022). Vulnerability and Threat Trends Report 2022. Skybox Security.
+                        Available from
+                        https://www.skyboxsecurity.com/resources/report/vulnerability-threat-trends-report- 2022/
+                        [Accessed 27 April 2023]. Sonnekalb, T., Heinze, T.S. and Mäder, P. (2021). Deep security
+                        analysis of program code. Empirical Software Engineering, 27 (1), 2. Available from
+                        https://doi.org/10.1007/s10664- 021-10029-х. State of Cybersecurity Report 2021 | 4th Annual
+                        Report | Accenture. (2021). Available from
+                        https://www.accenture.com/us-en/insights/security/invest-cyber-resilience [Accessed 31 October
+                        2022]. Sun, N. et al. (2019). Data-Driven Cybersecurity Incident Prediction: A Survey. IEEE
+                        Communications Surveys & Tutorials, 21 (2), 1744-1772. Available from
+                        https://doi.org/10.1109/COMST.2018.2885561. Tomaschek, A. (2023). LastPass Issues Update on Data
+                        Breach, But Users Should Still Change Passwords. CNET. Available from
+                        https://www.cnet.com/tech/services-and-
+                        software/lastpass-issues-update-on-data-breach-but-users-should-still-change-passwords/
+                        [Accessed 28 April 2023]. University of Westminster Code of Practice Governing the Ethical
+                        Conduct of Research 2020-21. (2021). Yamaguchi, F. et al. (2014). Modeling and Discovering
+                        Vulnerabilities with Code Property Graphs. 2014 IEEE Symposium on Security and Privacy. May
+                        2014. San Jose, CA: IEEE, 590-604. Available from https://doi.org/10.1109/SP.2014.44 [Accessed
+                        31 October 2022]. Zero Day Initiative. (2023). Zero Day Initiative - The April 2023 Security
+                        Update Review. Zero Day Initiative. Available from
+                        https://www.thezdi.com/blog/2023/4/11/the-april-2023- security-update-review [Accessed 27 April
+                        2023].</p>
                 </details>
             </section>
-            <!-- Add more sections like Appendices if applicable -->
         </main>
         <footer>
-            <p>&copy; 2025 Saadh Jawwadh. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} Saadh Jawwadh. All rights reserved.</p>
         </footer>
     </body>
 
