@@ -10,7 +10,7 @@ The main Vite.js project is located in the `about-saadh` subdirectory.
 
 This project is configured for deployment to GitHub Pages. The live site will be available at:
 
-`https://<your-github-username>.github.io/about-saadhjawwadh/`
+`https://SaadhJawwadh.github.io/about-saadhjawwadh/`
 
 (Please replace `<your-github-username>` with the actual GitHub username.)
 
