@@ -19,9 +19,11 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+        working-directory: ./about-saadh
 
       - name: Build Vite app
         run: npm run build
+        working-directory: ./about-saadh
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -29,7 +31,7 @@ jobs:
       - name: Upload dist folder
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: about-saadh/dist
 
       - name: Deploy to GitHub Pages
         id: deployment
